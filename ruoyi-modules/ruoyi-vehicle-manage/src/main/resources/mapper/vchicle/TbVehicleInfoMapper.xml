@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.vehicle.mapper.TbVehicleInfoMapper">
+    
+    <resultMap type="com.ruoyi.vehicle.domain.TbVehicleInfo" id="TbVehicleInfoResult">
+        <result property="id"    column="id"    />
+        <result property="vehicleCode"    column="vehicle_code"    />
+        <result property="vehicleVin"    column="vehicle_vin"    />
+        <result property="vehicleType"    column="vehicle_type"    />
+        <result property="vehicleFence"    column="vehicle_fence"    />
+        <result property="vehicleStatus"    column="vehicle_status"    />
+        <result property="vehicleMotor"    column="vehicle_motor"    />
+        <result property="vehicleBattery"    column="vehicle_battery"    />
+        <result property="vehicleMotorCode"    column="vehicle_motor_code"    />
+        <result property="vehicleBatteryCode"    column="vehicle_battery_code"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectTbVehicleInfoVo">
+        select id, vehicle_code, vehicle_vin, vehicle_type, vehicle_fence, vehicle_status, vehicle_motor, vehicle_battery, vehicle_motor_code, vehicle_battery_code, create_by, create_time, update_by, update_time, del_flag from tb_vehicle_info
+    </sql>
+
+    <select id="selectTbVehicleInfoList" parameterType="com.ruoyi.vehicle.domain.TbVehicleInfo" resultMap="TbVehicleInfoResult">
+        <include refid="selectTbVehicleInfoVo"/>
+        <where>  
+            <if test="vehicleCode != null  and vehicleCode != ''"> and vehicle_code = #{vehicleCode}</if>
+            <if test="vehicleVin != null  and vehicleVin != ''"> and vehicle_vin = #{vehicleVin}</if>
+            <if test="vehicleType != null  and vehicleType != ''"> and vehicle_type = #{vehicleType}</if>
+            <if test="vehicleFence != null  and vehicleFence != ''"> and vehicle_fence = #{vehicleFence}</if>
+            <if test="vehicleStatus != null "> and vehicle_status = #{vehicleStatus}</if>
+            <if test="vehicleMotor != null  and vehicleMotor != ''"> and vehicle_motor = #{vehicleMotor}</if>
+            <if test="vehicleBattery != null  and vehicleBattery != ''"> and vehicle_battery = #{vehicleBattery}</if>
+            <if test="vehicleMotorCode != null  and vehicleMotorCode != ''"> and vehicle_motor_code = #{vehicleMotorCode}</if>
+            <if test="vehicleBatteryCode != null  and vehicleBatteryCode != ''"> and vehicle_battery_code = #{vehicleBatteryCode}</if>
+        </where>
+    </select>
+    
+    <select id="selectTbVehicleInfoById" parameterType="Long" resultMap="TbVehicleInfoResult">
+        <include refid="selectTbVehicleInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTbVehicleInfo" parameterType="com.ruoyi.vehicle.domain.TbVehicleInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_vehicle_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vehicleCode != null">vehicle_code,</if>
+            <if test="vehicleVin != null">vehicle_vin,</if>
+            <if test="vehicleType != null">vehicle_type,</if>
+            <if test="vehicleFence != null">vehicle_fence,</if>
+            <if test="vehicleStatus != null">vehicle_status,</if>
+            <if test="vehicleMotor != null">vehicle_motor,</if>
+            <if test="vehicleBattery != null">vehicle_battery,</if>
+            <if test="vehicleMotorCode != null">vehicle_motor_code,</if>
+            <if test="vehicleBatteryCode != null">vehicle_battery_code,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vehicleCode != null">#{vehicleCode},</if>
+            <if test="vehicleVin != null">#{vehicleVin},</if>
+            <if test="vehicleType != null">#{vehicleType},</if>
+            <if test="vehicleFence != null">#{vehicleFence},</if>
+            <if test="vehicleStatus != null">#{vehicleStatus},</if>
+            <if test="vehicleMotor != null">#{vehicleMotor},</if>
+            <if test="vehicleBattery != null">#{vehicleBattery},</if>
+            <if test="vehicleMotorCode != null">#{vehicleMotorCode},</if>
+            <if test="vehicleBatteryCode != null">#{vehicleBatteryCode},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbVehicleInfo" parameterType="com.ruoyi.vehicle.domain.TbVehicleInfo">
+        update tb_vehicle_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vehicleCode != null">vehicle_code = #{vehicleCode},</if>
+            <if test="vehicleVin != null">vehicle_vin = #{vehicleVin},</if>
+            <if test="vehicleType != null">vehicle_type = #{vehicleType},</if>
+            <if test="vehicleFence != null">vehicle_fence = #{vehicleFence},</if>
+            <if test="vehicleStatus != null">vehicle_status = #{vehicleStatus},</if>
+            <if test="vehicleMotor != null">vehicle_motor = #{vehicleMotor},</if>
+            <if test="vehicleBattery != null">vehicle_battery = #{vehicleBattery},</if>
+            <if test="vehicleMotorCode != null">vehicle_motor_code = #{vehicleMotorCode},</if>
+            <if test="vehicleBatteryCode != null">vehicle_battery_code = #{vehicleBatteryCode},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTbVehicleInfoById" parameterType="Long">
+        delete from tb_vehicle_info where id = #{id}
+    </delete>
+
+    <delete id="deleteTbVehicleInfoByIds" parameterType="String">
+        delete from tb_vehicle_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

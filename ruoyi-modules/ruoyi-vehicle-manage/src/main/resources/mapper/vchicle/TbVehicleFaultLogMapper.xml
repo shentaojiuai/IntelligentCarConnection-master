@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.vehicle.mapper.TbVehicleFaultLogMapper">
+    
+    <resultMap type="com.ruoyi.vehicle.domain.TbVehicleFaultLog" id="TbVehicleFaultLogResult">
+        <result property="id"    column="id"    />
+        <result property="vehicleId"    column="vehicle_id"    />
+        <result property="vehicleFaultId"    column="vehicle_fault_id"    />
+        <result property="logStatus"    column="log_status"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="processBy"    column="process_by"    />
+        <result property="processTime"    column="process_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="lastTime"    column="last_time"    />
+    </resultMap>
+
+    <sql id="selectTbVehicleFaultLogVo">
+        select id, vehicle_id, vehicle_fault_id, log_status, start_time, end_time, process_by, process_time, del_flag, last_time from tb_vehicle_fault_log
+    </sql>
+
+    <select id="selectTbVehicleFaultLogList" parameterType="com.ruoyi.vehicle.domain.TbVehicleFaultLog" resultMap="TbVehicleFaultLogResult">
+        <include refid="selectTbVehicleFaultLogVo"/>
+        <where>  
+            <if test="vehicleId != null  and vehicleId != ''"> and vehicle_id = #{vehicleId}</if>
+            <if test="vehicleFaultId != null  and vehicleFaultId != ''"> and vehicle_fault_id = #{vehicleFaultId}</if>
+            <if test="logStatus != null  and logStatus != ''"> and log_status = #{logStatus}</if>
+            <if test="startTime != null "> and start_time = #{startTime}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+            <if test="processBy != null  and processBy != ''"> and process_by = #{processBy}</if>
+            <if test="processTime != null "> and process_time = #{processTime}</if>
+            <if test="lastTime != null "> and last_time = #{lastTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectTbVehicleFaultLogById" parameterType="Long" resultMap="TbVehicleFaultLogResult">
+        <include refid="selectTbVehicleFaultLogVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTbVehicleFaultLog" parameterType="com.ruoyi.vehicle.domain.TbVehicleFaultLog" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_vehicle_fault_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vehicleId != null">vehicle_id,</if>
+            <if test="vehicleFaultId != null">vehicle_fault_id,</if>
+            <if test="logStatus != null">log_status,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="processBy != null">process_by,</if>
+            <if test="processTime != null">process_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="lastTime != null">last_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vehicleId != null">#{vehicleId},</if>
+            <if test="vehicleFaultId != null">#{vehicleFaultId},</if>
+            <if test="logStatus != null">#{logStatus},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="processBy != null">#{processBy},</if>
+            <if test="processTime != null">#{processTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="lastTime != null">#{lastTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbVehicleFaultLog" parameterType="com.ruoyi.vehicle.domain.TbVehicleFaultLog">
+        update tb_vehicle_fault_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vehicleId != null">vehicle_id = #{vehicleId},</if>
+            <if test="vehicleFaultId != null">vehicle_fault_id = #{vehicleFaultId},</if>
+            <if test="logStatus != null">log_status = #{logStatus},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="processBy != null">process_by = #{processBy},</if>
+            <if test="processTime != null">process_time = #{processTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="lastTime != null">last_time = #{lastTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTbVehicleFaultLogById" parameterType="Long">
+        delete from tb_vehicle_fault_log where id = #{id}
+    </delete>
+
+    <delete id="deleteTbVehicleFaultLogByIds" parameterType="String">
+        delete from tb_vehicle_fault_log where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

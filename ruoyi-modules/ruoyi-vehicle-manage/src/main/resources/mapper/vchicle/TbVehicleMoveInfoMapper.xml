@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.vehicle.mapper.TbVehicleMoveInfoMapper">
+    
+    <resultMap type="com.ruoyi.vehicle.domain.TbVehicleMoveInfo" id="TbVehicleMoveInfoResult">
+        <result property="id"    column="id"    />
+        <result property="vehicleId"    column="vehicle_id"    />
+        <result property="vehicleVin"    column="vehicle_vin"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectTbVehicleMoveInfoVo">
+        select id, vehicle_id, vehicle_vin, start_time, end_time, create_by, create_time, update_by, update_time, del_flag from tb_vehicle_move_info
+    </sql>
+
+    <select id="selectTbVehicleMoveInfoList" parameterType="com.ruoyi.vehicle.domain.TbVehicleMoveInfo" resultMap="TbVehicleMoveInfoResult">
+        <include refid="selectTbVehicleMoveInfoVo"/>
+        <where>  
+            <if test="vehicleId != null  and vehicleId != ''"> and vehicle_id = #{vehicleId}</if>
+            <if test="vehicleVin != null  and vehicleVin != ''"> and vehicle_vin = #{vehicleVin}</if>
+            <if test="startTime != null "> and start_time = #{startTime}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectTbVehicleMoveInfoById" parameterType="Long" resultMap="TbVehicleMoveInfoResult">
+        <include refid="selectTbVehicleMoveInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTbVehicleMoveInfo" parameterType="com.ruoyi.vehicle.domain.TbVehicleMoveInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_vehicle_move_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vehicleId != null and vehicleId != ''">vehicle_id,</if>
+            <if test="vehicleVin != null and vehicleVin != ''">vehicle_vin,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vehicleId != null and vehicleId != ''">#{vehicleId},</if>
+            <if test="vehicleVin != null and vehicleVin != ''">#{vehicleVin},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbVehicleMoveInfo" parameterType="com.ruoyi.vehicle.domain.TbVehicleMoveInfo">
+        update tb_vehicle_move_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vehicleId != null and vehicleId != ''">vehicle_id = #{vehicleId},</if>
+            <if test="vehicleVin != null and vehicleVin != ''">vehicle_vin = #{vehicleVin},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTbVehicleMoveInfoById" parameterType="Long">
+        delete from tb_vehicle_move_info where id = #{id}
+    </delete>
+
+    <delete id="deleteTbVehicleMoveInfoByIds" parameterType="String">
+        delete from tb_vehicle_move_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

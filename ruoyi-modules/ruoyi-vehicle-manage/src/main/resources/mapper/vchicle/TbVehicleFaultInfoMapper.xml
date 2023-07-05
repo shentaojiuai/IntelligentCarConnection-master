@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.vehicle.mapper.TbVehicleFaultInfoMapper">
+    
+    <resultMap type="com.ruoyi.vehicle.domain.TbVehicleFaultInfo" id="TbVehicleFaultInfoResult">
+        <result property="id"    column="id"    />
+        <result property="faultType"    column="fault_type"    />
+        <result property="faultGroup"    column="fault_group"    />
+        <result property="faultSite"    column="fault_site"    />
+        <result property="faultValue"    column="fault_value"    />
+        <result property="faultLabel"    column="fault_label"    />
+        <result property="faultCoed"    column="fault_coed"    />
+        <result property="isWarn"    column="is_warn"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectTbVehicleFaultInfoVo">
+        select id, fault_type, fault_group, fault_site, fault_value, fault_label, fault_coed, is_warn, create_by, create_time, update_by, update_time, del_flag from tb_vehicle_fault_info
+    </sql>
+
+    <select id="selectTbVehicleFaultInfoList" parameterType="com.ruoyi.vehicle.domain.TbVehicleFaultInfo" resultMap="TbVehicleFaultInfoResult">
+        <include refid="selectTbVehicleFaultInfoVo"/>
+        <where>  
+            <if test="faultType != null  and faultType != ''"> and fault_type = #{faultType}</if>
+            <if test="faultGroup != null  and faultGroup != ''"> and fault_group = #{faultGroup}</if>
+            <if test="faultSite != null  and faultSite != ''"> and fault_site = #{faultSite}</if>
+            <if test="faultValue != null  and faultValue != ''"> and fault_value = #{faultValue}</if>
+            <if test="faultLabel != null  and faultLabel != ''"> and fault_label = #{faultLabel}</if>
+            <if test="faultCoed != null  and faultCoed != ''"> and fault_coed = #{faultCoed}</if>
+            <if test="isWarn != null "> and is_warn = #{isWarn}</if>
+        </where>
+    </select>
+    
+    <select id="selectTbVehicleFaultInfoById" parameterType="Long" resultMap="TbVehicleFaultInfoResult">
+        <include refid="selectTbVehicleFaultInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTbVehicleFaultInfo" parameterType="com.ruoyi.vehicle.domain.TbVehicleFaultInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_vehicle_fault_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="faultType != null">fault_type,</if>
+            <if test="faultGroup != null">fault_group,</if>
+            <if test="faultSite != null">fault_site,</if>
+            <if test="faultValue != null">fault_value,</if>
+            <if test="faultLabel != null">fault_label,</if>
+            <if test="faultCoed != null">fault_coed,</if>
+            <if test="isWarn != null">is_warn,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="faultType != null">#{faultType},</if>
+            <if test="faultGroup != null">#{faultGroup},</if>
+            <if test="faultSite != null">#{faultSite},</if>
+            <if test="faultValue != null">#{faultValue},</if>
+            <if test="faultLabel != null">#{faultLabel},</if>
+            <if test="faultCoed != null">#{faultCoed},</if>
+            <if test="isWarn != null">#{isWarn},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTbVehicleFaultInfo" parameterType="com.ruoyi.vehicle.domain.TbVehicleFaultInfo">
+        update tb_vehicle_fault_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="faultType != null">fault_type = #{faultType},</if>
+            <if test="faultGroup != null">fault_group = #{faultGroup},</if>
+            <if test="faultSite != null">fault_site = #{faultSite},</if>
+            <if test="faultValue != null">fault_value = #{faultValue},</if>
+            <if test="faultLabel != null">fault_label = #{faultLabel},</if>
+            <if test="faultCoed != null">fault_coed = #{faultCoed},</if>
+            <if test="isWarn != null">is_warn = #{isWarn},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTbVehicleFaultInfoById" parameterType="Long">
+        delete from tb_vehicle_fault_info where id = #{id}
+    </delete>
+
+    <delete id="deleteTbVehicleFaultInfoByIds" parameterType="String">
+        delete from tb_vehicle_fault_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
